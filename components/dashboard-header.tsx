@@ -33,7 +33,7 @@ export function DashboardHeader() {
     <header className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="flex h-16 items-center justify-between px-6">
         <div>
-          <h1 className="text-xl font-bold">TURAINCASH Admin</h1>
+          <h1 className="text-xl font-bold">Slater Admin</h1>
           <p className="text-sm text-muted-foreground">Gérez votre plateforme</p>
         </div>
 
