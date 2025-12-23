@@ -47,6 +47,7 @@ export function SettingsDialog({ open, onOpenChange, settings }: SettingsDialogP
     telegram: null,
     moov_marchand_phone: null,
     orange_marchand_phone: null,
+    mtn_marchand_phone: null,
   })
 
   useEffect(() => {
@@ -70,6 +71,7 @@ export function SettingsDialog({ open, onOpenChange, settings }: SettingsDialogP
         telegram: settings.telegram,
         moov_marchand_phone: settings.moov_marchand_phone,
         orange_marchand_phone: settings.orange_marchand_phone,
+        mtn_marchand_phone: settings.mtn_marchand_phone,
       })
     }
   }, [settings])
@@ -320,6 +322,17 @@ export function SettingsDialog({ open, onOpenChange, settings }: SettingsDialogP
                     id="orange_marchand_phone"
                     value={formData.orange_marchand_phone || ""}
                     onChange={(e) => setFormData({ ...formData, orange_marchand_phone: e.target.value || null })}
+                    placeholder="2250700000000"
+                    disabled={updateSettings.isPending}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="mtn_marchand_phone">Téléphone Marchand MTN</Label>
+                  <Input
+                    id="mtn_marchand_phone"
+                    value={formData.mtn_marchand_phone || ""}
+                    onChange={(e) => setFormData({ ...formData, mtn_marchand_phone: e.target.value || null })}
                     placeholder="2250700000000"
                     disabled={updateSettings.isPending}
                   />

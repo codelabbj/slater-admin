@@ -24,6 +24,7 @@ export interface Settings {
   telegram: string | null
   moov_marchand_phone: string | null
   orange_marchand_phone: string | null
+  mtn_marchand_phone: string | null
 }
 
 export type SettingsInput = Omit<Settings, "id">
