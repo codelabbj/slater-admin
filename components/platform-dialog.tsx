@@ -187,20 +187,28 @@ export function PlatformDialog({ open, onOpenChange, platform }: PlatformDialogP
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
+    const sanitizeData = (data: PlatformInput) => {
+      const sanitized = { ...data }
+      if (!sanitized.hash || (typeof sanitized.hash === "string" && sanitized.hash.trim() === "")) {
+        delete sanitized.hash
+      }
+      if (
+        !sanitized.cashdeskid ||
+        (typeof sanitized.cashdeskid === "string" && sanitized.cashdeskid.trim() === "")
+      ) {
+        delete sanitized.cashdeskid
+      }
+      if (
+        !sanitized.cashierpass ||
+        (typeof sanitized.cashierpass === "string" && sanitized.cashierpass.trim() === "")
+      ) {
+        delete sanitized.cashierpass
+      }
+      return sanitized
+    }
+
     if (platform) {
-      // For update, exclude hash, cashdeskid, cashierpass if they're empty
-      const updateData: Partial<PlatformInput> = { ...formData }
-      
-      // Remove hash, cashdeskid, cashierpass if they're empty/null (only if not inputted)
-      if (!updateData.hash || (typeof updateData.hash === "string" && updateData.hash.trim() === "")) {
-        delete updateData.hash
-      }
-      if (!updateData.cashdeskid || (typeof updateData.cashdeskid === "string" && updateData.cashdeskid.trim() === "")) {
-        delete updateData.cashdeskid
-      }
-      if (!updateData.cashierpass || (typeof updateData.cashierpass === "string" && updateData.cashierpass.trim() === "")) {
-        delete updateData.cashierpass
-      }
+      const updateData = sanitizeData(formData)
 
       updatePlatform.mutate(
         { id: platform.id, data: updateData },
@@ -217,7 +225,9 @@ export function PlatformDialog({ open, onOpenChange, platform }: PlatformDialogP
         return
       }
 
-      createPlatform.mutate(formData, {
+      const createData = sanitizeData(formData)
+
+      createPlatform.mutate(createData, {
         onSuccess: () => {
           onOpenChange(false)
           setFormData({

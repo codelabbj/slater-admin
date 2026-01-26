@@ -9,9 +9,9 @@ export interface Platform {
   name: string
   image: string
   enable: boolean
-  hash: string | null
-  cashdeskid: string | null
-  cashierpass: string | null
+  hash?: string | null
+  cashdeskid?: string | null
+  cashierpass?: string | null
   deposit_tuto_link: string | null
   withdrawal_tuto_link: string | null
   why_withdrawal_fail: string | null
@@ -53,7 +53,7 @@ export function usePlatforms(filters: PlatformFilters = {}) {
       if (filters.enable !== undefined) params.enable = filters.enable
 
       const res = await api.get<Platform[] | PlatformsResponse>("/mobcash/plateform", { params })
-      
+
       // Handle both array response and paginated response
       if (Array.isArray(res.data)) {
         return {
@@ -63,7 +63,7 @@ export function usePlatforms(filters: PlatformFilters = {}) {
           results: res.data,
         } as PlatformsResponse
       }
-      
+
       return res.data as PlatformsResponse
     },
   })
